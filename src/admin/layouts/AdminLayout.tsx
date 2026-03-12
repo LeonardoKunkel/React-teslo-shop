@@ -5,10 +5,10 @@ import { Outlet } from "react-router";
 import { AdminSidebar } from "../components/AdminSidebar";
 import { AdminHeader } from "../components/AdminHeader";
 
-export const AdminLayout = () => {
+const AdminLayout = () => {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     return (
-        <div className="bg-gray-50 flex">
+        <div className="min-h-screen bg-gray-50 flex">
             <AdminSidebar
                 isCollapsed={sidebarCollapsed}
                 onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -26,3 +26,4 @@ export const AdminLayout = () => {
     )
 }
 
+export default AdminLayout;

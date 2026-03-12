@@ -46,11 +46,11 @@ export const appRouter = createBrowserRouter([
                 element: <Navigate to="/auth/login" />
             },
             {
-                path: '/login',
+                path: 'login',
                 element: <LoginPage />
             },
             {
-                path: '/register',
+                path: 'register',
                 element: <RegisterPage />
             },
         ]
