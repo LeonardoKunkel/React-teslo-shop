@@ -16,6 +16,8 @@ export const useProducts = () => {
 
   const price = searchParams.get('price') || 'any';
 
+  const query = searchParams.get('query') || undefined;
+
   let minPrice = undefined;
   let maxPrice = undefined;
 
@@ -34,8 +36,8 @@ export const useProducts = () => {
       break;
 
     case '100-200':
-      minPrice = 0;
-      maxPrice = 50;
+      minPrice = 100;
+      maxPrice = 200;
       break;
 
     case '200+':
@@ -46,12 +48,15 @@ export const useProducts = () => {
   }
 
   return useQuery({
-    queryKey: ['products', { offset, limit, gender, sizes, minPrice, maxPrice }],
+    queryKey: ['products', { offset, limit, gender, sizes, minPrice, maxPrice, query }],
     queryFn: () => getProductsAction({
       limit: isNaN(+limit) ? 9 : limit,
       offset: isNaN(offset) ? 0 : offset,
       gender,
-      sizes
+      sizes,
+      minPrice,
+      maxPrice,
+      query
     }),
     staleTime: 100 * 60 * 5
   })
