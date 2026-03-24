@@ -4,15 +4,19 @@ import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-quer
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { Toaster } from 'sonner'
 import type { PropsWithChildren } from "react"
-import { CheckAuthAction } from "./auth/actions/check-auth.action"
+
 import { CustomFullScreenLoading } from "./components/custom/CustomFullScreenLoading"
+import { useAuthStore } from "./auth/store/auth.store"
 
 const queryClient = new QueryClient();
 
 const CheckAuthProvider = ({ children }: PropsWithChildren) => {
+
+    const { checkAuthStatus } = useAuthStore()
+
     const { isLoading } = useQuery({
         queryKey: ['auth'],
-        queryFn: CheckAuthAction,
+        queryFn: checkAuthStatus,
         retry: false,
         refetchInterval: 1000 * 60 * 1.5, // Revalidar la sesión 1 hora y media después
         refetchOnWindowFocus: true
