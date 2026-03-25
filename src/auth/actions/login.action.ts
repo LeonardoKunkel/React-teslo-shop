@@ -11,7 +11,7 @@ export const loginAction = async (email: string, password: string): Promise<Auth
             password: password
         });
 
-        console.log(data);
+        // console.log(data);
 
         return data;
 
