@@ -1,11 +1,12 @@
 import { tesloApi } from "@/api/tesloApi";
 import type { Product } from "@/interfaces/product.interface";
 
-
+// Preguntamos por el Id -------------------v
 export const getProductByIdAction = async (id: string): Promise<Product> => {
 
     if (!id) throw new Error('Id is required');
 
+    // Si el Id es 'new', regresamos este objeto
     if (id === 'new') {
         return {
             id: 'new',
@@ -21,6 +22,7 @@ export const getProductByIdAction = async (id: string): Promise<Product> => {
         } as unknown as Product;
     }
 
+    // Si el Id tiene algún valor lanzamos esta petición
     const { data } = await tesloApi.get<Product>(`/products/${id}`);
 
     const images = data.images.map(image => {
