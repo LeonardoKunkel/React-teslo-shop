@@ -5,6 +5,7 @@ import { AdminTitle } from "@/admin/components/AdminTitle";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/interfaces/product.interface";
 import { X, SaveAll, Tag, Plus, Upload } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Props {
     title: string;
@@ -18,7 +19,7 @@ export const ProductForm = ({ title, subTitle, product }: Props) => {
 
     const [dragActive, setDragActive] = useState(false);
 
-    const { register } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         // Aquí establecemos los valores del formulario, debe de ser del 'product', por eso -> defaultValues: product
         defaultValues: product
     })
@@ -114,12 +115,22 @@ export const ProductForm = ({ title, subTitle, product }: Props) => {
                                     </label>
                                     <input
                                         type="text"
-                                        // value={product.title}
-                                        // onChange={(e) => handleInputChange('title', e.target.value)}
-                                        {...register('title')}
-                                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                        {...register('title', {
+                                            required: true
+                                        })}
+                                        className={cn(
+                                            "w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200",
+                                            {
+                                                'border-red-500': errors.title,
+                                            }
+                                        )}
                                         placeholder="Título del producto"
                                     />
+                                    {
+                                        errors.title && (
+                                            <p className="text-red-500 text-sm">El título es requerido</p>
+                                        )
+                                    }
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
