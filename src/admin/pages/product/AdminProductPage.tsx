@@ -39,8 +39,6 @@ export const AdminProductPage = () => {
 
 
 
-
-
     if (isError) {
         return <Navigate to='/admin/products' />
     }
