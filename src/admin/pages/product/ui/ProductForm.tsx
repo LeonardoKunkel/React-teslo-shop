@@ -11,11 +11,14 @@ interface Props {
     title: string;
     subTitle: string;
     product: Product;
+
+    // methods
+    onSubmit: (productLike: Partial<Product>) => Promise<void>
 }
 
 const availableSizes: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
-export const ProductForm = ({ title, subTitle, product }: Props) => {
+export const ProductForm = ({ title, subTitle, product, onSubmit }: Props) => {
 
     const [dragActive, setDragActive] = useState(false);
 
@@ -103,7 +106,7 @@ export const ProductForm = ({ title, subTitle, product }: Props) => {
     };
 
     return (
-        <>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex justify-between items-center">
                 <AdminTitle title={title} subTitle={subTitle} />
                 <div className="flex justify-end mb-10 gap-4">
@@ -503,6 +506,6 @@ export const ProductForm = ({ title, subTitle, product }: Props) => {
                     </div>
                 </div>
             </div>
-        </>
+        </form>
     );
 }

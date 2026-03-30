@@ -28,7 +28,7 @@ export const AdminProductPage = () => {
 
     const { id } = useParams();
 
-    const { isLoading, isError, data: product } = useProduct(id || '');
+    const { isLoading, isError, data: product, handleSubmitForm } = useProduct(id || '');
 
 
     const title = id === 'new' ? 'Nuevo producto' : 'Editar producto';
@@ -36,7 +36,6 @@ export const AdminProductPage = () => {
         id === 'new'
             ? 'Aquí puedes crear un nuevo producto.'
             : 'Aquí puedes editar el producto.';
-
 
 
     if (isError) {
@@ -56,5 +55,6 @@ export const AdminProductPage = () => {
         title={title}
         subTitle={subTitle}
         product={product}
+        onSubmit={handleSubmitForm}
     />
 };
