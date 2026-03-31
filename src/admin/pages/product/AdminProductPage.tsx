@@ -14,6 +14,7 @@ export const AdminProductPage = () => {
 
     const { isLoading, isError, data: product, mutation } = useProduct(id || '');
 
+    console.log({})
 
     const title = id === 'new' ? 'Nuevo producto' : 'Editar producto';
     const subTitle =
@@ -54,5 +55,6 @@ export const AdminProductPage = () => {
         subTitle={subTitle}
         product={product}
         onSubmit={handleSubmit}
+        isPending={mutation.isPending}
     />
 };
