@@ -1,10 +1,13 @@
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { getProductByIdAction } from "../actions/get-product-by-id.action"
 import type { Product } from "@/interfaces/product.interface";
 import { createUpdateProductAction } from "../actions/create-update-product.action";
+import { products } from "@/mocks/products.mock";
 
 // Este Hook se va a encargar a todo lo relacionado a un solo producto
 export const useProduct = (id: string) => {
+
+    const queryClient = useQueryClient()
 
     const query = useQuery({
         queryKey: ['product', { id }],
@@ -16,10 +19,16 @@ export const useProduct = (id: string) => {
     const mutation = useMutation({
         mutationFn: createUpdateProductAction,
         onSuccess: (product: Product) => {
-            console.log('Todo salión bien', product);
-            // TODO: 
-            // Invalidar caché
+
+            // Invalidar caché 
+            queryClient.invalidateQueries({ queryKey: ['products'] });
+            queryClient.invalidateQueries({
+                queryKey: ['product', { id: product.id }]
+            });
+
             // Actualizar queryData
+            queryClient.setQueryData(['products', { id: product.id }], product)
+
         }
     })
 
