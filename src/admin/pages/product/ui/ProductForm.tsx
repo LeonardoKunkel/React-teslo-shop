@@ -14,10 +14,14 @@ interface Props {
     isPending: boolean;
 
     // methods
-    onSubmit: (productLike: Partial<Product>) => Promise<void>
+    onSubmit: (productLike: Partial<Product> & { files?: File[] }) => Promise<void>
 }
 
 const availableSizes: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+interface FormsInputs extends Product {
+    files?: File[];
+}
 
 export const ProductForm = ({ title, subTitle, product, onSubmit, isPending }: Props) => {
 
@@ -30,7 +34,7 @@ export const ProductForm = ({ title, subTitle, product, onSubmit, isPending }: P
         getValues,
         setValue,
         watch
-    } = useForm({
+    } = useForm<FormsInputs>({
         // Aquí establecemos los valores del formulario, debe de ser del 'product', por eso -> defaultValues: product
         defaultValues: product
     });
@@ -103,6 +107,9 @@ export const ProductForm = ({ title, subTitle, product, onSubmit, isPending }: P
         if (!files) return;
 
         setFiles((prev) => [...prev, ...Array.from(files)]);
+
+        const currentFiles = getValues('files') || [];
+        setValue('files', [...currentFiles, ...Array.from(files)]);
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,6 +118,9 @@ export const ProductForm = ({ title, subTitle, product, onSubmit, isPending }: P
         if (!files) return;
 
         setFiles((prev) => [...prev, ...Array.from(files)]);
+
+        const currentFiles = getValues('files') || [];
+        setValue('files', [...currentFiles, ...Array.from(files)]);
     };
 
     return (

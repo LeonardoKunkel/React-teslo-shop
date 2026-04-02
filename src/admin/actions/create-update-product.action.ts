@@ -3,7 +3,7 @@ import type { Product } from "@/interfaces/product.interface"
 import { sleep } from "@/lib/sleep";
 
 export const createUpdateProductAction = async (
-    productLike: Partial<Product>
+    productLike: Partial<Product> & { files?: File[] }
 ): Promise<Product> => {
 
     await sleep(1500);
