@@ -282,7 +282,7 @@ export const ProductForm = ({ title, subTitle, product, onSubmit, isPending }: P
                                         Descripción del producto
                                     </label>
                                     <textarea
-                                        {...register('description'), { required: true }}
+                                        {...register('description', { required: true })}
                                         rows={5}
                                         className={cn(
                                             "w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200",

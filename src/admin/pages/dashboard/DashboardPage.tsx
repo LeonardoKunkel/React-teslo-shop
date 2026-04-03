@@ -40,6 +40,19 @@ const stats = [
     }
 ];
 
+const chartData = [
+    { label: 'Desktop', value: 65 },
+    { label: 'Mobile', value: 28 },
+    { label: 'Tablet', value: 7 },
+];
+
+const performanceData = [
+    { label: 'Page Views', value: 24567 },
+    { label: 'Sessions', value: 18234 },
+    { label: 'Users', value: 12847 },
+    { label: 'Bounce Rate', value: 23 },
+];
+
 export const DashboardPage = () => {
     return (
         <>
